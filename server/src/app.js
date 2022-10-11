@@ -1,24 +1,18 @@
 const express = require('express');
 const cors = require('cors');
-const products = require('./data/products');
-
 const app = express();
+
+const api = require('./routes/api');
 
 app.use(cors({
     origin: "http://localhost:5173",
 }));
 
+app.use('/v1', api);
+
 app.get('/', (req, res) => {
-    res.send('Hello from API')
+    res.send('Hello from API');
 });
 
-app.get('/api/products', (req, res) => {
-    res.json(products);
-});
-
-app.get('/api/products/:id', (req, res) => {
-    const product = products.find(product => product._id === req.params.id);
-    res.json(product);
-});
 
 module.exports = app;
