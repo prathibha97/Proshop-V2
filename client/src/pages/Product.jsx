@@ -2,15 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Row, Col, Image, ListGroup, Card, Button, Form } from 'react-bootstrap'
 import { Loader, Message, Rating } from '../components'
-import { useLocation } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { listProductDetails } from '../redux/actions/productActions'
 
 const Product = () => {
-  const location = useLocation()
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const id = location.pathname.split('/')[2]
+  const {id} = useParams()
 
   const productDetails = useSelector((state) => state.productDetails)
   const { loading, error, product } = productDetails
