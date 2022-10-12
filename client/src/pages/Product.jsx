@@ -5,6 +5,7 @@ import { Loader, Message, Rating } from '../components'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { listProductDetails } from '../redux/actions/productActions'
+import { addToCart } from '../redux/actions/cartActions'
 
 const Product = () => {
   const dispatch = useDispatch()
@@ -21,7 +22,9 @@ const Product = () => {
   }, [dispatch, listProductDetails])
 
   const AddToCartHandler = () => {
+    dispatch(addToCart(id, qty))
     navigate(`/cart/${id}?qty=${qty}`)
+
   }
 
   return (
