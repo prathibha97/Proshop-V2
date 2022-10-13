@@ -5,6 +5,8 @@ const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 
 const api = require('./routes/api');
 
+app.use(express.json())
+
 app.use(cors({
     origin: "http://localhost:5173",
 }));
