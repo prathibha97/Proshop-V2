@@ -9,7 +9,7 @@ app.use(cors({
     origin: "http://localhost:5173",
 }));
 
-app.use('/v1', api);
+app.use('/api/v1', api);
 
 app.use(notFound);
 app.use(errorHandler);
