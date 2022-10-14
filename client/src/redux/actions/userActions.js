@@ -9,7 +9,10 @@ import {
     USER_LOGOUT,
     USER_REGISTER_FAIL,
     USER_REGISTER_REQUEST,
-    USER_REGISTER_SUCCESS
+    USER_REGISTER_SUCCESS,
+    USER_UPDATE_PROFILE_FAIL,
+    USER_UPDATE_PROFILE_REQUEST,
+    USER_UPDATE_PROFILE_SUCCESS
 } from "../constants/userConstants"
 
 export const login = (email, password) => async (dispatch) => {
@@ -75,6 +78,31 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
     } catch (err) {
         dispatch({
             type: USER_DETAILS_FAIL, payload: err.response && err.response.data.message
+                ? err.response.data.message
+                : err.message
+        })
+    }
+}
+
+export const updateUserProfile = (user) => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: USER_UPDATE_PROFILE_REQUEST,
+        })
+        const { userLogin: { userInfo } } = getState();
+        const config = {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+        const { data } = await api.put(`/users/profile`, user, config)
+        dispatch({
+            type: USER_UPDATE_PROFILE_SUCCESS,
+            payload: data,
+        })
+    } catch (err) {
+        dispatch({
+            type: USER_UPDATE_PROFILE_FAIL, payload: err.response && err.response.data.message
                 ? err.response.data.message
                 : err.message
         })
