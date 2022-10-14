@@ -6,3 +6,4 @@ export { default as Register } from "./Register";
 export { default as Profile } from "./Profile";
 export { default as Shipping } from "./Shipping";
 export { default as Payment } from "./Payment";
+export { default as PlaceOrder } from "./PlaceOrder";

@@ -1,7 +1,7 @@
 import { Container } from 'react-bootstrap'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { Footer, Header } from "./components"
-import { Cart, Home, Login, Product, Register, Profile, Shipping , Payment} from './pages'
+import { Cart, Home, Login, Product, Register, Profile, Shipping , Payment, PlaceOrder} from './pages'
 
 function App() {
 
@@ -12,6 +12,7 @@ function App() {
         <Container>
           <Routes>
             <Route path='/shipping' element={<Shipping />} />
+            <Route path='/placeorder' element={<PlaceOrder />} />
             <Route path='/payment' element={<Payment />} />
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
