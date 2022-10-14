@@ -1,10 +1,13 @@
+import { useEffect } from 'react'
 import { Button, Card, Col, Image, ListGroup, ListGroupItem, Row } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { CheckoutSteps, Message } from '../components'
+import { createOrder } from '../redux/actions/orderActions'
 
 const PlaceOrder = () => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const cart = useSelector((state) => state.cart)
 
@@ -21,9 +24,25 @@ const PlaceOrder = () => {
 
     cart.totalPrice = addDecimal((Number(cart.itemsPrice) + Number(cart.shippingPrice) + Number(cart.taxPrice)).toFixed(2))
 
+    const orderCreate = useSelector((state) => state.orderCreate)
+    const { order, success, error } = orderCreate
+
+    useEffect(() => {
+        if (success) {
+            navigate(`/orders/${order._id}`)
+        }
+    }, [success])
 
     const placeOrderHandler = () => {
-        console.log('order')
+        dispatch(createOrder({
+            orderItems: cart.cartItems,
+            shippingAddress: cart.shippingAddress,
+            paymentMethod: cart.paymentMethod,
+            itemsPrice: cart.itemsPrice,
+            taxPrice: cart.taxPrice,
+            totalPrice: cart.totalPrice,
+            shippingPrice: cart.shippingPrice,
+        }))
     }
 
     return (
@@ -110,6 +129,13 @@ const PlaceOrder = () => {
                                     <Col>Total</Col>
                                     <Col>${cart.totalPrice}</Col>
                                 </Row>
+
+                                {error &&
+                                    <ListGroupItem>
+                                        <Message variant='danger'>{error}</Message>
+                                    </ListGroupItem>
+                                }
+
                             </ListGroupItem>
                             <ListGroup>
                                 <Button type='button'
