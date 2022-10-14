@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col, ListGroup, Image, Form, Button, Card } from 'react-bootstrap'
 import { Message } from '../components'
@@ -16,7 +16,7 @@ const Cart = () => {
   }
 
   const checkoutHandler = () => {
-    navigate('/login?redirect=shipping')
+    navigate(`/login?redirect=/shipping` )
   }
   return (
     <Row>
