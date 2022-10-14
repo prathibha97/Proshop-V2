@@ -37,7 +37,7 @@ const Login = () => {
                         onChange={e => setEmail(e.target.value)}
                     />
                 </Form.Group>
-                <Form.Group controlId='password'>
+                <Form.Group controlId='password'  className='py-3'>
                     <Form.Label>password</Form.Label>
                     <Form.Control type='password'
                         placeholder='Enter your password'
