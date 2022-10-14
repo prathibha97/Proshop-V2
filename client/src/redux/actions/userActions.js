@@ -1,7 +1,14 @@
 import api from '../../utils/api'
 import {
-    USER_LOGIN_FAIL, USER_LOGIN_REQUEST,
-    USER_LOGIN_SUCCESS, USER_LOGOUT, USER_REGISTER_FAIL, USER_REGISTER_REQUEST,
+    USER_DETAILS_FAIL,
+    USER_DETAILS_REQUEST,
+    USER_DETAILS_SUCCESS,
+    USER_LOGIN_FAIL,
+    USER_LOGIN_REQUEST,
+    USER_LOGIN_SUCCESS,
+    USER_LOGOUT,
+    USER_REGISTER_FAIL,
+    USER_REGISTER_REQUEST,
     USER_REGISTER_SUCCESS
 } from "../constants/userConstants"
 
@@ -43,6 +50,31 @@ export const register = (name, email, password) => async (dispatch) => {
     } catch (err) {
         dispatch({
             type: USER_REGISTER_FAIL, payload: err.response && err.response.data.message
+                ? err.response.data.message
+                : err.message
+        })
+    }
+}
+
+export const getUserDetails = (id) => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: USER_DETAILS_REQUEST,
+        })
+        const { userLogin: { userInfo } } = getState();
+        const config = {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+        const { data } = await api.get(`/users/${id}`, config)
+        dispatch({
+            type: USER_DETAILS_SUCCESS,
+            payload: data,
+        })
+    } catch (err) {
+        dispatch({
+            type: USER_DETAILS_FAIL, payload: err.response && err.response.data.message
                 ? err.response.data.message
                 : err.message
         })
