@@ -17,7 +17,7 @@ app.use('/api/v1', api)
 app.use(notFound);
 app.use(errorHandler)
 
-app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
+app.use('/uploads', express.static(path.join(__dirname, 'src', 'routes', 'uploads')))
 
 app.get('/', (req, res) => {
     res.send('Hello from API')

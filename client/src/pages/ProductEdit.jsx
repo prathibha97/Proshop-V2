@@ -3,8 +3,9 @@ import { Button, Form, FormControl, FormGroup, FormLabel } from 'react-bootstrap
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { FormContainer, Loader, Message } from '../components'
-import { listProductDetails, createProduct, updateProduct } from '../redux/actions/productActions'
+import { listProductDetails, updateProduct } from '../redux/actions/productActions'
 import { PRODUCT_UPDATE_RESET } from '../redux/constants/productConstants'
+import api from '../utils/api'
 
 const ProductEdit = () => {
     const dispatch = useDispatch()
@@ -15,7 +16,7 @@ const ProductEdit = () => {
     const { loading, error, product } = productDetails
 
     const productUpdate = useSelector((state) => state.productUpdate)
-    const { loading:loadingUpdate, error:ErrorUpdate, success:successUpdate } = productUpdate
+    const { loading: loadingUpdate, error: ErrorUpdate, success: successUpdate } = productUpdate
 
     const [name, setName] = useState('')
     const [price, setPrice] = useState(0)
@@ -24,12 +25,13 @@ const ProductEdit = () => {
     const [category, setCategory] = useState('')
     const [countInStock, setCountInStock] = useState(0)
     const [description, setDescription] = useState('')
+    const [uploading, setUploading] = useState(false)
 
     useEffect(() => {
-        if(successUpdate){
-            dispatch({type: PRODUCT_UPDATE_RESET})
+        if (successUpdate) {
+            dispatch({ type: PRODUCT_UPDATE_RESET })
             navigate('/admin/productlist')
-        }else{
+        } else {
             if (!product.name || product._id !== id) {
                 dispatch(listProductDetails(id))
             } else {
@@ -44,6 +46,26 @@ const ProductEdit = () => {
         }
 
     }, [product, id, dispatch, successUpdate])
+
+    const uploadFileHandler = async (e) => {
+        const file = e.target.files[0]
+        const formData = new FormData()
+        formData.append('image', file)
+        setUploading(true)
+        try {
+            const config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }
+            const { data } = await api.post('/upload', formData, config)
+            setImage(data)
+            setUploading(false)
+        } catch (err) {
+            console.log(err)
+            setUploading(false)
+        }
+    }
 
     const submitHandler = (e) => {
         e.preventDefault()
@@ -64,7 +86,7 @@ const ProductEdit = () => {
 
             <FormContainer>
                 <h1>Edit Product</h1>
-                {loadingUpdate && <Loader/>}
+                {loadingUpdate && <Loader />}
                 {ErrorUpdate && <Message variant='danger'>{ErrorUpdate}</Message>}
                 {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> : (
                     <Form onSubmit={submitHandler}>
@@ -84,13 +106,18 @@ const ProductEdit = () => {
                                 onChange={e => setPrice(e.target.value)}
                             />
                         </FormGroup>
-                        <FormGroup controlId='image' className='py-2'>
+                        <FormGroup className='py-2'>
                             <FormLabel>Image</FormLabel>
                             <FormControl type='text'
                                 value={image}
                                 placeholder='Enter image url'
                                 onChange={e => setImage(e.target.value)}
                             />
+                            <FormControl id='image-file'
+                                label='Choose File'
+                                type="file"
+                                onChange={uploadFileHandler}></FormControl>
+                            {uploading && <Loader />}
                         </FormGroup>
                         <FormGroup controlId='brand' className='py-2'>
                             <FormLabel>Brand</FormLabel>
