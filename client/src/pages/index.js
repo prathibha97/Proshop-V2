@@ -9,3 +9,4 @@ export { default as Payment } from "./Payment";
 export { default as PlaceOrder } from "./PlaceOrder";
 export { default as Order } from "./Order";
 export { default as UserList } from "./UserList";
+export { default as UserEdit } from "./UserEdit";
