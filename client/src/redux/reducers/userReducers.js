@@ -5,6 +5,7 @@ import {
     USER_DETAILS_SUCCESS,
     USER_LIST_FAIL,
     USER_LIST_REQUEST,
+    USER_LIST_RESET,
     USER_LIST_SUCCESS,
     USER_LOGIN_FAIL,
     USER_LOGIN_REQUEST,
@@ -82,10 +83,10 @@ export const userDetailsReducer = (state = { user: {} }, action) => {
                 loading: false,
                 error: payload,
             };
-            case USER_DETAILS_RESET:
-                return {
-                    user: {},
-                };
+        case USER_DETAILS_RESET:
+            return {
+                user: {},
+            };
         default:
             return state;
     }
@@ -114,7 +115,7 @@ export const userUpdateProfileReducer = (state = {}, action) => {
     }
 };
 
-export const userListReducer = (state = {users:[]}, action) => {
+export const userListReducer = (state = { users: [] }, action) => {
     const { type, payload } = action;
     switch (type) {
         case USER_LIST_REQUEST:
@@ -130,6 +131,10 @@ export const userListReducer = (state = {users:[]}, action) => {
             return {
                 loading: false,
                 error: payload,
+            };
+        case USER_LIST_RESET:
+            return {
+                users: [],
             };
         default:
             return state;
