@@ -57,7 +57,6 @@ const Order = () => {
     }, [dispatch, id, succesPay, order])
 
     const successPaymentHandler = (paymentResult) => {
-        console.log(paymentResult)
         dispatch(payOrder(id, paymentResult))
     }
 
