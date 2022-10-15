@@ -7,6 +7,7 @@ import { Loader, Message } from '../components'
 import { getOrderDetails, payOrder } from '../redux/actions/orderActions'
 import api from '../utils/api'
 import {ORDER_PAY_RESET} from '../redux/constants/orderConstants'
+import { CART_RESET } from '../redux/constants/cartConstants'
 
 const Order = () => {
     const dispatch = useDispatch()
@@ -44,6 +45,7 @@ const Order = () => {
         }
         if (!order || succesPay) {
             dispatch({type: ORDER_PAY_RESET})
+            dispatch({type: CART_RESET})
             dispatch(getOrderDetails(id))
         } else if (!order.isPaid) {
             if (!window.papal) {
