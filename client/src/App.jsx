@@ -14,7 +14,8 @@ import {
   Shipping,
   UserList,
   UserEdit,
-  ProductList
+  ProductList,
+  ProductEdit
 } from './pages'
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
             <Route path='/admin/userlist' element={<UserList />} />
             <Route path='/admin/productlist' element={<ProductList />} />
             <Route path='/admin/user/:id/edit' element={<UserEdit />} />
+            <Route path='/admin/product/:id/edit' element={<ProductEdit />} />
             <Route path='/' element={<Home />} exact />
           </Routes>
         </Container>

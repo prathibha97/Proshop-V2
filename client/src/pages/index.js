@@ -11,3 +11,4 @@ export { default as Order } from "./Order";
 export { default as UserList } from "./UserList";
 export { default as UserEdit } from "./UserEdit";
 export { default as ProductList } from "./ProductList";
+export { default as ProductEdit } from "./ProductEdit";
