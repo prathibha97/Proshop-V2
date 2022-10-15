@@ -3,9 +3,11 @@ const {
     authUser,
     getUserProfile,
     registerUser,
-    UpdateUserProfile,
+    updateUserProfile,
     getUsers,
-    deleteUser
+    deleteUser,
+    getUserById,
+    updateUser
 } = require('./user.controller')
 const { protect, admin } = require('../../middleware/authMiddleware')
 
@@ -17,9 +19,13 @@ userRouter.post('/login', authUser);
 userRouter
     .route('/profile')
     .get(protect, getUserProfile)
-    .put(protect, UpdateUserProfile)
+    .put(protect, updateUserProfile)
 
-userRouter.route('/:id').delete(protect, admin, deleteUser)
+userRouter
+    .route('/:id')
+    .delete(protect, admin, deleteUser)
+    .get(protect, admin, getUserById)
+    .put(protect, admin, updateUser)
 
 
 module.exports = { userRouter };
