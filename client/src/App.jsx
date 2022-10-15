@@ -1,7 +1,7 @@
 import { Container } from 'react-bootstrap'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { Footer, Header } from "./components"
-import { Cart, Home, Login, Product, Register, Profile, Shipping , Payment, PlaceOrder, Order} from './pages'
+import { Cart, Home, Login, Product, Register, Profile, Shipping , Payment, PlaceOrder, Order, UserList} from './pages'
 
 function App() {
 
@@ -21,6 +21,7 @@ function App() {
             <Route path='/cart' element={<Cart />} />
             <Route path='/cart/:id' element={<Cart />} />
             <Route path='/order/:id' element={<Order />} />
+            <Route path='/admin/userlist' element={<UserList />} />
             <Route path='/' element={<Home />} exact />
           </Routes>
         </Container>
