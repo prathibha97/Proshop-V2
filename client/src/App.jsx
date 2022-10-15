@@ -13,7 +13,8 @@ import {
   Register,
   Shipping,
   UserList,
-  UserEdit
+  UserEdit,
+  ProductList
 } from './pages'
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
             <Route path='/cart/:id' element={<Cart />} />
             <Route path='/order/:id' element={<Order />} />
             <Route path='/admin/userlist' element={<UserList />} />
+            <Route path='/admin/productlist' element={<ProductList />} />
             <Route path='/admin/user/:id/edit' element={<UserEdit />} />
             <Route path='/' element={<Home />} exact />
           </Routes>
