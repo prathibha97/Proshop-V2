@@ -3,7 +3,8 @@ import { Button, Form, FormCheck, FormControl, FormGroup, FormLabel } from 'reac
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { FormContainer, Loader, Message } from '../components'
-import { getUserDetails } from '../redux/actions/userActions'
+import { getUserDetails, updateUser } from '../redux/actions/userActions'
+import { USER_UPDATE_RESET } from '../redux/constants/userConstants'
 
 const UserEdit = () => {
     const dispatch = useDispatch()
@@ -13,22 +14,31 @@ const UserEdit = () => {
     const userDetails = useSelector((state) => state.userDetails)
     const { loading, error, user } = userDetails
 
+    const userUpdate = useSelector((state) => state.userUpdate)
+    const { loading: loadingUpdate, error: loadingError, success: successUpdate } = userUpdate
+
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [isAdmin, setIsAdmin] = useState(false)
 
     useEffect(() => {
-        if(!user.name || user._id !== id){
-            dispatch(getUserDetails(id))
-        }else{
-            setName(user.name)
-            setEmail(user.email)
-            setIsAdmin(user.isAdmin)
+        if (successUpdate) {
+            dispatch({ type: USER_UPDATE_RESET })
+            navigate('/admin/userlist')
+        } else {
+            if (!user.name || user._id !== id) {
+                dispatch(getUserDetails(id))
+            } else {
+                setName(user.name)
+                setEmail(user.email)
+                setIsAdmin(user.isAdmin)
+            }
         }
-    }, [user, id, dispatch])
+    }, [user, id, dispatch, successUpdate])
 
     const submitHandler = (e) => {
         e.preventDefault()
+        dispatch(updateUser({ _id: id, name, email, isAdmin }))
     }
     return (
         <>
@@ -36,6 +46,8 @@ const UserEdit = () => {
 
             <FormContainer>
                 <h1>Edit User</h1>
+                {loadingUpdate && <Loader />}
+                {loadingError && <Message variant='danger'>{loadingError}</Message>}
                 {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> : (
                     <Form onSubmit={submitHandler}>
                         <FormGroup controlId='name'>
