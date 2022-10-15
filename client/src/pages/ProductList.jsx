@@ -2,14 +2,13 @@ import { useEffect } from 'react'
 import { Button, Col, Row, Table } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Loader, Message } from '../components'
-import { listProducts } from '../redux/actions/productActions'
+import { deleteProduct, listProducts } from '../redux/actions/productActions'
 
 const ProductList = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const { id } = useParams()
 
     const productList = useSelector((state) => state.productList)
     const { loading, error, products } = productList
@@ -17,21 +16,24 @@ const ProductList = () => {
     const userLogin = useSelector((state) => state.userLogin)
     const { userInfo } = userLogin
 
+    const productDelete = useSelector((state) => state.productDelete)
+    const { loading: loadingDelete, error: errorDelete, success: successDelete } = productDelete
+
     useEffect(() => {
         if (userInfo && userInfo.isAdmin) {
             dispatch(listProducts())
         } else {
             navigate('/login')
         }
-    }, [dispatch, userInfo,])
+    }, [dispatch, userInfo, successDelete])
 
     const deleteHandler = (id) => {
-        if (window.confirm('Are you sure you want to delete')) {
-            // TODO: delete products
+        if (window.confirm('Are you sure you want to delete?')) {
+            dispatch(deleteProduct(id))
         }
     }
 
-    const createProductHandler = (product)=>{
+    const createProductHandler = (product) => {
         // TODO: create products
     }
     return (
@@ -46,6 +48,8 @@ const ProductList = () => {
                     </Button>
                 </Col>
             </Row>
+            {loadingDelete && <Loader />}
+            {errorDelete && <Message variant='danger'>{errorDelete}</Message>}
             {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> : (
                 <Table striped bordered hover responsive className='table-sm'>
                     <thead>
