@@ -1,7 +1,7 @@
 const asyncHandler = require('express-async-handler');
 const Order = require('../../models/Order')
 
-// @desc   Create new Order o
+// @desc   Create new Order 
 // @route  Post /v1/api/orders
 // @access Private
 const addOrderItems = asyncHandler(async (req, res) => {
@@ -33,6 +33,20 @@ const addOrderItems = asyncHandler(async (req, res) => {
     }
 })
 
+// @desc   Get order by ID
+// @route  Post /v1/api/orders/:id
+// @access Private
+const getOrderById = asyncHandler(async (req, res) => {
+    const order = await Order.findById(req.params.id).populate('user', 'name email');
+
+    if (order) {
+        res.json(order);
+    } else {
+        res.status(404)
+        throw new Error('Order not found')
+    }
+})
+
 module.exports = {
-    addOrderItems
+    addOrderItems, getOrderById
 }
