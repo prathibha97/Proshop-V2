@@ -21,8 +21,7 @@ import {
 import {
   orderCreateReducer,
   orderDetailsReducer,
-  orderListMyReducer,
-  orderPayReducer
+  orderListMyReducer, orderListReducer, orderPayReducer
 } from './reducers/orderReducers';
 
 const cartItemsFromStorage = localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : []
@@ -56,6 +55,7 @@ const reducer = combineReducers({
   orderDetails: orderDetailsReducer,
   orderPay: orderPayReducer,
   orderListMy: orderListMyReducer,
+  orderList: orderListReducer,
 });
 
 const middleware = [thunk]

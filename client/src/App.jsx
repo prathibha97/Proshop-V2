@@ -15,7 +15,8 @@ import {
   UserList,
   UserEdit,
   ProductList,
-  ProductEdit
+  ProductEdit,
+  OrderList
 } from './pages'
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
             <Route path='/cart/:id' element={<Cart />} />
             <Route path='/order/:id' element={<Order />} />
             <Route path='/admin/userlist' element={<UserList />} />
+            <Route path='/admin/orderlist' element={<OrderList />} />
             <Route path='/admin/productlist' element={<ProductList />} />
             <Route path='/admin/user/:id/edit' element={<UserEdit />} />
             <Route path='/admin/product/:id/edit' element={<ProductEdit />} />
