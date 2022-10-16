@@ -5,7 +5,7 @@ import {
 } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { Loader, Message, Rating } from '../components'
+import { Loader, Message, Meta, Rating } from '../components'
 import { addToCart } from '../redux/actions/cartActions'
 import { createProductReview, listProductDetails } from '../redux/actions/productActions'
 import { PRODUCT_CREATE_REVIEW_RESET } from '../redux/constants/productConstants'
@@ -29,11 +29,11 @@ const Product = () => {
   const [comment, setComment] = useState('')
 
   useEffect(() => {
-    if(successProductReview){
+    if (successProductReview) {
       alert('Review submitted!')
       setRating(0)
       setComment('')
-      dispatch({type: PRODUCT_CREATE_REVIEW_RESET})
+      dispatch({ type: PRODUCT_CREATE_REVIEW_RESET })
     }
     dispatch(listProductDetails(id))
   }, [dispatch, listProductDetails, successProductReview])
@@ -57,6 +57,7 @@ const Product = () => {
       <Link className='btn btn-light my-3' to='/'> Go Back</Link>
       {loading ? <Loader /> : error ? <Message variant='dander'>{error}</Message> : (
         <>
+          <Meta title={product.name} />
           <Row>
             <Col md={6}>
               <Image src={product.image} alt={product.name} fluid />
