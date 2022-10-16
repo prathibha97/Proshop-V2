@@ -17,6 +17,9 @@ import {
   PRODUCT_LIST_REQUEST,
   PRODUCT_LIST_RESET,
   PRODUCT_LIST_SUCCESS,
+  PRODUCT_TOP_FAIL,
+  PRODUCT_TOP_REQUEST,
+  PRODUCT_TOP_SUCCESS,
   PRODUCT_UPDATE_FAIL,
   PRODUCT_UPDATE_REQUEST,
   PRODUCT_UPDATE_RESET,
@@ -148,7 +151,7 @@ export const productUpdateReducer = (state = { product: {} }, action) => {
   }
 };
 
-export const productReviewCreateReducer = (state = { }, action) => {
+export const productReviewCreateReducer = (state = {}, action) => {
   const { type, payload } = action;
   switch (type) {
     case PRODUCT_CREATE_REVIEW_REQUEST:
@@ -167,6 +170,29 @@ export const productReviewCreateReducer = (state = { }, action) => {
       };
     case PRODUCT_CREATE_REVIEW_RESET:
       return {};
+    default:
+      return state;
+  }
+};
+
+export const productTopRatedReducer = (state = { products: [] }, action) => {
+  const { type, payload } = action;
+  switch (type) {
+    case PRODUCT_TOP_REQUEST:
+      return {
+        loading: true,
+        products: []
+      };
+    case PRODUCT_TOP_SUCCESS:
+      return {
+        loading: false,
+        products: payload,
+      };
+    case PRODUCT_TOP_FAIL:
+      return {
+        loading: false,
+        error: payload,
+      };
     default:
       return state;
   }

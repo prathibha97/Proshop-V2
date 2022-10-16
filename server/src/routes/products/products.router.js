@@ -5,7 +5,8 @@ const {
     deleteProduct,
     updateProduct,
     createProduct,
-    createProductReview
+    createProductReview,
+    getTopProducts
 } = require('./product.controller')
 const { protect, admin } = require('../../middleware/authMiddleware')
 
@@ -16,6 +17,7 @@ productsRouter
     .get(getProducts)
     .post(protect, admin, createProduct)
 
+productsRouter.get('/top', getTopProducts)
 
 productsRouter
     .route('/:id')
@@ -24,6 +26,6 @@ productsRouter
     .put(protect, admin, updateProduct)
 
 productsRouter
-.route('/:id/reviews').post(protect, createProductReview)
+    .route('/:id/reviews').post(protect, createProductReview)
 
 module.exports = { productsRouter };
