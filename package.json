@@ -1,7 +1,7 @@
 {
   "name": "proshop_v2",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "license": "MIT",
   "scripts": {
     "install-server": "npm install --prefix server",
