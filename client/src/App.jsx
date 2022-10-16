@@ -42,6 +42,7 @@ function App() {
             <Route path='/admin/productlist' element={<ProductList />} />
             <Route path='/admin/user/:id/edit' element={<UserEdit />} />
             <Route path='/admin/product/:id/edit' element={<ProductEdit />} />
+            <Route path='/search/:keyword' element={<Home />} />
             <Route path='/' element={<Home />} exact />
           </Routes>
         </Container>
