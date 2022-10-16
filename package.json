@@ -4,8 +4,8 @@
   "main": "server.js",
   "license": "MIT",
   "scripts": {
-    "install-server": "npm install --prefix server",
-    "install-client": "npm install --prefix client",
+    "install-server": "npm install --legacy-peer-deps --prefix server",
+    "install-client": "npm install --legacy-peer-deps --prefix client",
     "install": "npm run install-server && npm run install-client",
     "server": "npm run watch --prefix server",
     "client": "npm run dev --prefix client",
