@@ -4,7 +4,9 @@ const {
     getProductById,
     deleteProduct,
     updateProduct,
-    createProduct } = require('./product.controller')
+    createProduct ,
+    createProductReview
+} = require('./product.controller')
 const { protect, admin } = require('../../middleware/authMiddleware')
 
 const productsRouter = express.Router();
@@ -13,6 +15,8 @@ productsRouter
     .route('/')
     .get(getProducts)
     .post(protect, admin, createProduct)
+
+productsRouter.route('/:id/reviews').post(protect, createProductReview)
 
 productsRouter
     .route('/:id')

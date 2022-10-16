@@ -1,10 +1,16 @@
 const express = require('express')
 const cors = require('cors')
-const app = express()
 const path = require('path')
+const morgan = require('morgan')
 const { notFound, errorHandler } = require('./middleware/errorMiddleware')
 
 const api = require('./routes/api')
+
+const app = express()
+
+if(process.env.NODE_ENV !== 'production'){
+    app.use(morgan('dev'))
+}
 
 app.use(express.json())
 
