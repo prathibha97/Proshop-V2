@@ -6,8 +6,8 @@
   "author": "Prathibha Ratnayake",
   "license": "MIT",
   "scripts": {
-    "start": "node server.js",
-    "watch": "nodemon server.js",
+    "start": "node src/server.js",
+    "watch": "nodemon src/server.js",
     "data:import": "node src/seeder.js",
     "data:destroy": "node src/seeder.js -d"
   },
