@@ -17,7 +17,7 @@ const Register = () => {
     const [confirmPassword, setConfirmPassword] = useState('')
     const [message, setMessage] = useState(null)
 
-    const redirect = location.search ? location.search.split('=')[1] : '/'
+    const redirect = window.location.search ? window.location.search.split('=')[1] : '/'
 
     useEffect(() => {
         if (userInfo) {

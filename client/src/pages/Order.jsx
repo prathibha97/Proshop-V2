@@ -40,7 +40,7 @@ const Order = () => {
     useEffect(() => {
 
         if (!userInfo) {
-            useNavigate('/login')
+            navigate('/login')
         }
         const addPayPalScript = async () => {
             const { data: clientId } = await api.get('/config/paypal')
