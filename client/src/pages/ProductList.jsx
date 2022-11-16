@@ -49,7 +49,8 @@ const ProductList = () => {
         successDelete,
         successCreate,
         createdProduct,
-        pageNumber
+        pageNumber,
+        navigate
     ]
     )
 

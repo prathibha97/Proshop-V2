@@ -36,7 +36,7 @@ const Product = () => {
       dispatch({ type: PRODUCT_CREATE_REVIEW_RESET })
     }
     dispatch(listProductDetails(id))
-  }, [dispatch, listProductDetails, successProductReview])
+  }, [dispatch, successProductReview, id])
 
   const AddToCartHandler = () => {
     dispatch(addToCart(id, qty))

@@ -45,7 +45,7 @@ const ProductEdit = () => {
             }
         }
 
-    }, [product, id, dispatch, successUpdate])
+    }, [product, id, dispatch, successUpdate, navigate])
 
     const uploadFileHandler = async (e) => {
         const file = e.target.files[0]

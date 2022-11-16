@@ -42,7 +42,7 @@ const Profile = () => {
                 setEmail(user.email)
             }
         }
-    }, [userInfo, dispatch, user])
+    }, [userInfo, dispatch, user, navigate])
 
     const submitHandler = (e) => {
         e.preventDefault()

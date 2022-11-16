@@ -18,7 +18,7 @@ const Login = () => {
         if (userInfo) {
             navigate(redirect)
         }
-    }, [userInfo, redirect])
+    }, [userInfo, redirect, navigate])
 
     const submitHandler = (e) => {
         e.preventDefault()

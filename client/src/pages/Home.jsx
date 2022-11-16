@@ -15,7 +15,7 @@ const Home = () => {
   useEffect(() => {
     dispatch(listProducts(keyword, pageNumber))
 
-  }, [dispatch, listProducts, pageNumber, keyword]);
+  }, [dispatch, pageNumber, keyword]);
 
   const productList = useSelector((state) => state.productList)
   const { loading, error, products, page, pages } = productList
