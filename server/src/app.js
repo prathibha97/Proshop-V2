@@ -15,15 +15,15 @@ app.use(cors({
 app.use(express.json())
 app.use(morgan('dev'))
 
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
+
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, "..", "..", "client", "build")))
 
     app.get('/', (req, res) => {
-        res.sendFile(path.join(__dirname, "..", "..", "client", "build"))
+        res.sendFile(path.resolve(__dirname, "..", "..", "client", "build", "index.html"))
     })
 }
-
-app.use('/uploads', express.static(path.join(__dirname, '..', 'src', 'routes', 'uploads')))
 
 app.use('/api/v1', api)
 
